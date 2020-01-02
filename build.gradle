@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'idea'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+}
+
+application {
+    mainClassName = 'net.iatsuk.fuchu.App'
+}
