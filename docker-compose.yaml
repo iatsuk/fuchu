@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+  metrics:
+    image: gographite/docker-go-graphite
+    restart: always
+    volumes:
+      - "./data/metrics/grafana:/var/lib/grafana"
+      - "./data/metrics/whisper:/var/lib/graphite/whisper"
+      - "./conf/metrics/go-carbon.conf:/etc/go-carbon/go-carbon.conf"
+      - "./conf/metrics/grafana.ini:/etc/grafana/grafana.ini"
+    ports:
+      - "2003:2003" # plain tcp
+      - "2003:2003/udp" # plain udp
+      - "2004:2004" # pickle
+      - "3000:80" # grafana webserver
