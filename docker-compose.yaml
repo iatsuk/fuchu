@@ -5,12 +5,35 @@ services:
     image: gographite/docker-go-graphite
     restart: always
     volumes:
-      - "./data/metrics/grafana:/var/lib/grafana"
-      - "./data/metrics/whisper:/var/lib/graphite/whisper"
-      - "./conf/metrics/go-carbon.conf:/etc/go-carbon/go-carbon.conf"
-      - "./conf/metrics/grafana.ini:/etc/grafana/grafana.ini"
+      - './data/metrics/grafana:/var/lib/grafana'
+      - './data/metrics/whisper:/var/lib/graphite/whisper'
+      - './conf/metrics/go-carbon.conf:/etc/go-carbon/go-carbon.conf'
+      - './conf/metrics/grafana.ini:/etc/grafana/grafana.ini'
     ports:
-      - "2003:2003" # plain tcp
-      - "2003:2003/udp" # plain udp
-      - "2004:2004" # pickle
-      - "3000:80" # grafana webserver
+      - '2003:2003' # plain tcp
+      - '2003:2003/udp' # plain udp
+      - '2004:2004' # pickle
+      - '3000:80' # grafana webserver
+
+  zookeeper:
+    image: zookeeper:3.5.6
+    restart: always
+    ports:
+      - '2181:2181' # client port
+    volumes:
+      - './data/zookeeper/data:/data'
+
+  kafka:
+    image: wurstmeister/kafka:2.12-2.4.0
+    restart: always
+    environment:
+      - 'KAFKA_ADVERTISED_HOST_NAME=localhost'
+      - 'KAFKA_AUTO_CREATE_TOPICS_ENABLE=false'
+      - 'KAFKA_CREATE_TOPICS=scheduled:1:1,fetched:1:1,parsed:1:1'
+      - 'KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181'
+    ports:
+      - '9092:9092'
+    volumes:
+      - './data/kafka/logs:/kafka'
+    links:
+      - zookeeper
