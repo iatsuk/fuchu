@@ -1,0 +1,10 @@
+ext.libraries = [
+        // logging
+        slf4j: [group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'],
+        // tests
+        junit: [group: 'junit', name: 'junit', version: '4.12'],
+]
+
+repositories {
+    jcenter()
+}

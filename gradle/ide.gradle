@@ -1,0 +1,27 @@
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+/* ide files generation */
+eclipse {
+    classpath {
+        downloadSources = true
+        file {
+            /* only gradle declared dependencies */
+            beforeMerged { classpath ->
+                classpath.entries.removeAll { entry -> entry.kind == 'lib' || entry.kind == 'var' }
+            }
+        }
+    }
+}
+
+idea {
+    module {
+        downloadSources = true
+        iml {
+            /* only gradle declared dependencies */
+            beforeMerged { module ->
+                module.dependencies.clear()
+            }
+        }
+    }
+}

@@ -1,15 +1,15 @@
-plugins {
-    id 'java'
-    id 'application'
-    id 'idea'
-}
-
-repositories {
-    jcenter()
-}
+apply from: "${rootDir}/gradle/ide.gradle"
+apply from: "${rootDir}/gradle/java.gradle"
+apply from: "${rootDir}/gradle/dependencies.gradle"
+apply from: "${rootDir}/gradle/tests.gradle"
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
+    implementation(
+            libraries.slf4j,
+    )
+    testImplementation(
+            libraries.junit,
+    )
 }
 
 application {
