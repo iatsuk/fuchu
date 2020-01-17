@@ -2,6 +2,10 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 /* Tests pretty stdout */
+// TODO: https://github.com/radarsh/gradle-test-logger-plugin
+//plugins {
+//    id 'com.adarshr.test-logger' version '2.0.0'
+//}
 
 // add a collection to track failedTests
 ext.failedTests = []
